@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="photoserver",
-    version="1.0.2",
+    version="1.0.5",
     packages=find_packages(),
     install_requires=[
         "fastapi==0.115.13",
@@ -23,6 +23,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.7',
+    py_modules=["main"],
     entry_points={
         "console_scripts": [
             "boothshellservice = main:main",
