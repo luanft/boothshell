@@ -9,12 +9,6 @@ from fastapi.background import BackgroundTasks
 # from dotenv import load_dotenv
 import uvicorn
 
-# load_dotenv()
-print("Environment variables loaded.")
-print(list(os.environ.keys()))
-print("===========================")
-
-
 app = FastAPI()
 
 app.add_middleware(
@@ -70,9 +64,6 @@ def some_background_task(command: str = "echo Hello from background task"):
 
 def run_shell_command(command: str):
     """Run a shell command from environment variable."""
-    print(f"Running command: {command}")
-    print(os.environ)
-    print("===========================")
     if command not in os.environ:
         print(f"Command '{command}' not found in environment.")
         return

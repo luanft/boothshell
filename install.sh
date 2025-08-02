@@ -33,7 +33,7 @@ if [ -f "/opt/boothshell/photoshell.service" ]; then
     sudo systemctl daemon-reexec
     sudo systemctl daemon-reload
     sudo systemctl enable photoshell
-    sudo systemctl start photoshell
+    sudo service photoshell restart
 fi
 
 echo "[✔] Done. Service installed."
