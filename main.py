@@ -6,10 +6,10 @@ import subprocess
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.background import BackgroundTasks
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import uvicorn
 
-load_dotenv()
+# load_dotenv()
 
 app = FastAPI()
 
@@ -66,7 +66,6 @@ def some_background_task(command: str = "echo Hello from background task"):
 
 def run_shell_command(command: str):
     """Run a shell command from environment variable."""
-    load_dotenv()
     if command not in os.environ:
         print(f"Command '{command}' not found in environment.")
         return

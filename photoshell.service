@@ -6,6 +6,7 @@ After=network.target
 Type=simple
 ExecStart=/opt/.boothshell_env/bin/boothshellservice
 WorkingDirectory=/opt/boothshell
+EnvironmentFile=/opt/boothshell/.env
 Restart=always
 
 [Install]
