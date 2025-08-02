@@ -1,0 +1,12 @@
+[Unit]
+Description=My Booth Shell Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/boothshell/venv/bin/boothshellservice
+WorkingDirectory=/opt/boothshell
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

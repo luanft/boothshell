@@ -62,5 +62,9 @@ def run_shell_command(command: str):
     os.system(f"{shell_cmd} > {log_file} 2>&1")
 
 
+def main():
+    """Run the FastAPI application."""
+    uvicorn.run(app, host="0.0.0.0", port=8889, reload=False, workers=1)
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8889)
+    main()

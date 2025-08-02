@@ -25,7 +25,7 @@ setup(
     python_requires='>=3.7',
     entry_points={
         "console_scripts": [
-            # "photoserver_cam = photoserver.server:main",
+            "boothshellservice = main:main",
             # "photoserver_com = photoserver.service:main"
         ]
     }
