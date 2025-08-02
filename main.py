@@ -27,7 +27,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/shell/{command}")
+@app.post("/shell/{command}")
 async def shell(command: str, background_tasks: BackgroundTasks):
     """Endpoint to return a simple message."""
     background_tasks.add_task(some_background_task, command)
