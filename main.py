@@ -2,6 +2,7 @@
 A simple FastAPI application to handle shell commands and return logs."""
 import os
 import tempfile
+import subprocess
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.background import BackgroundTasks
@@ -52,14 +53,32 @@ def some_background_task(command: str = "echo Hello from background task"):
     except Exception as e:
         print(f"Error occurred: {e}")
 
+# def run_shell_command(command: str):
+#     """Run a shell command."""
+#     load_dotenv()
+#     if command not in os.environ:
+#         return
+#     shell_cmd = os.environ[command]
+#     log_file = os.path.join(tempfile.gettempdir(), f"{command}.log")
+#     print(f"Running command: {shell_cmd} and logging to {log_file}")
+#     os.system(f"{shell_cmd} > {log_file} 2>&1")
+
+
 def run_shell_command(command: str):
-    """Run a shell command."""
+    """Run a shell command from environment variable."""
     load_dotenv()
     if command not in os.environ:
+        print(f"Command '{command}' not found in environment.")
         return
     shell_cmd = os.environ[command]
     log_file = os.path.join(tempfile.gettempdir(), f"{command}.log")
-    os.system(f"{shell_cmd} > {log_file} 2>&1")
+
+    print(f"Running: {shell_cmd}, logging to: {log_file}")
+
+    with open(log_file, "w", encoding="utf-8") as f:
+        result = subprocess.run(shell_cmd, shell=True, stdout=f, stderr=subprocess.STDOUT, check=True)
+
+    print(f"Command exited with code: {result.returncode}")
 
 
 def main():

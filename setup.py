@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="photoserver",
-    version="1.0.6",
+    version="1.0.7",
     packages=find_packages(),
     install_requires=[
         "fastapi==0.115.13",
