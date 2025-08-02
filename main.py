@@ -10,6 +10,10 @@ from fastapi.background import BackgroundTasks
 import uvicorn
 
 # load_dotenv()
+print("Environment variables loaded.")
+print(list(os.environ.keys()))
+print("===========================")
+
 
 app = FastAPI()
 
