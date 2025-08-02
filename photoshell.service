@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/opt/boothshell/venv/bin/boothshellservice
+ExecStart=/opt/.boothshell_env/bin/boothshellservice
 WorkingDirectory=/opt/boothshell
 Restart=always
 
