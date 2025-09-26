@@ -14,3 +14,5 @@ sudo apt autoremove -y
 
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
+
+curl -fsSL https://tailscale.com/install.sh | sh
