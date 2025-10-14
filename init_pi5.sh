@@ -1,6 +1,6 @@
 sudo apt update -y 
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
+sudo apt install -y nodejs git
 sudo apt install fonts-noto-core fonts-noto-color-emoji -y 
 sudo apt install fonts-nanum fonts-noto-cjk -y 
 sudo systemctl stop cups
