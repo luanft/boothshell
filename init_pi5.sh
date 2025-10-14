@@ -15,6 +15,7 @@ sudo apt install xinit -y
 sudo apt install xorg lxde -y
 sudo apt install openbox unclutter -y
 
+sudo apt install xserver-xorg-video-fbdev -y
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 
