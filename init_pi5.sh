@@ -11,6 +11,7 @@ sudo systemctl mask cups
 sudo systemctl mask cups-browsed
 sudo apt purge cups* -y
 sudo apt autoremove -y
+sudo apt install xinit -y
 
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
