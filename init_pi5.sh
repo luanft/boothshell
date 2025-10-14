@@ -11,7 +11,7 @@ sudo systemctl mask cups
 sudo systemctl mask cups-browsed
 sudo apt purge cups* -y
 sudo apt autoremove -y
-sudo apt install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox unclutter -y
+sudo apt install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox  gldriver-test unclutter -y
 
 
 curl -sSL https://get.docker.com | sh
