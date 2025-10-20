@@ -41,6 +41,7 @@ xset s noblank   # don't blank the video device
 
 # Hide the cursor permanently and grab the pointer
 unclutter -noevents -grab &
+unclutter-xfixes --hide-on-touch --timeout 0 &
 
 # Launch your Electron application in KIOSK mode.
 # 'exec' must be the LAST command to run the application efficiently.
