@@ -20,15 +20,21 @@ sudo usermod -aG docker $USER
 
 sudo usermod -aG video,input luant
 
+touch /home/luant/app/photoserver/deployment/install_wifi.sh
+chmod +x /home/luant/app/photoserver/deployment/install_wifi.sh
+
 cat << 'EOF' | tee -a ~/.bash_profile
 # Auto-start X server only on the main console (TTY1) if no display is running
 if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
   # Optional small delay (usually 3 seconds is enough)
+  bash /home/luant/app/photoserver/deployment/install_wifi.sh
   sleep 30
   # The 'exec' command replaces the shell process with the X server process, preventing resource leaks
   exec startx
 fi
 EOF
+
+
 
 
 cat << 'EOF' > ~/.xinitrc
@@ -49,3 +55,6 @@ exec /home/luant/app/photobooth/photobooth_ui/dist/PhotoBoothLite-1.1.0-arm64.Ap
 EOF
 
 curl -fsSL https://tailscale.com/install.sh | sh
+
+echo "luant ALL=(ALL) NOPASSWD: /usr/bin/nmcli" | sudo tee /etc/sudoers.d/wifi-privilege > /dev/null
+sudo chmod 0440 /etc/sudoers.d/wifi-privilege
