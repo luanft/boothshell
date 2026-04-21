@@ -49,12 +49,18 @@ xset s noblank   # don't blank the video device
 unclutter -noevents -grab &
 unclutter-xfixes --hide-on-touch --timeout 0 &
 
+HITI_SCRIPT="/home/luant/app/photoserver/deployment/update_hiti_ip.sh"
+if [ -f "$HITI_SCRIPT" ]; then
+    echo "Running HiTi IP update script..."
+    "$HITI_SCRIPT"
+fi
+
 # Launch your Electron application in KIOSK mode.
 # 'exec' must be the LAST command to run the application efficiently.
 exec /home/luant/app/photobooth/photobooth_ui/dist/PhotoBoothLite-1.1.0-arm64.AppImage > log.txt 2>&1
 EOF
 
-curl -fsSL https://tailscale.com/install.sh | sh
+# curl -fsSL https://tailscale.com/install.sh | sh
 
 echo "luant ALL=(ALL) NOPASSWD: /usr/bin/nmcli" | sudo tee /etc/sudoers.d/wifi-privilege > /dev/null
 sudo chmod 0440 /etc/sudoers.d/wifi-privilege
