@@ -17,6 +17,7 @@ sudo apt install --no-install-recommends xserver-xorg x11-xserver-utils xinit gl
 
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
+sudo usermod -aG netdev $USER
 
 sudo usermod -aG video,input luant
 
