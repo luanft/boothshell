@@ -28,7 +28,7 @@ cat << 'EOF' | tee -a ~/.bash_profile
 # Auto-start X server only on the main console (TTY1) if no display is running
 if [[ -z $DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
   # Optional small delay (usually 3 seconds is enough)
-  bash /home/luant/machi_deployment/install_wifi.sh
+  bash /home/luant/machi_deployment/install_wifi.sh &
   sleep 30
   # The 'exec' command replaces the shell process with the X server process, preventing resource leaks
   exec startx
