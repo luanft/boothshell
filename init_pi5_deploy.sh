@@ -13,6 +13,7 @@ sudo apt install fonts-nanum fonts-noto-cjk -y
 # sudo apt autoremove -y
 sudo apt install -y libcups2 fuse3 fuse libfuse2 zlib1g zlib1g-dev libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libx11-dev libxtst6 libnss3 libasound2 libxss1 libxrandr2 libatk-bridge2.0-0 libdrm2 libgbm1
 sudo apt install --no-install-recommends xserver-xorg x11-xserver-utils xinit gldriver-test unclutter unclutter-xfixes -y
+sudo apt update && sudo apt install samba samba-common-bin -y
 
 
 curl -sSL https://get.docker.com | sh
