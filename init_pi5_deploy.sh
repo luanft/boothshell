@@ -62,6 +62,28 @@ fi
 exec /opt/machi_deployment/PhotoBoothLite-1.1.0-arm64.AppImage > booth_log.txt 2>&1
 EOF
 
+
+sudo tee -a /etc/samba/smb.conf > /dev/null << 'EOF'
+
+[printed_images]
+   comment = Machi printing
+   path = /opt/machi_deployment/resources/uploads
+   browseable = yes
+   writable = no
+   guest ok = yes
+   public = yes
+
+[raw_images]
+   comment = Machi raw
+   path = /opt/machi_deployment/resources/snapshots
+   browseable = yes
+   writable = no
+   guest ok = yes
+   public = yes
+EOF
+
+sudo systemctl restart smbd
+
 # curl -fsSL https://tailscale.com/install.sh | sh
 
 echo "machi ALL=(ALL) NOPASSWD: /usr/bin/nmcli" | sudo tee /etc/sudoers.d/wifi-privilege > /dev/null
