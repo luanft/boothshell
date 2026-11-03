@@ -3,13 +3,14 @@ from setuptools import setup, find_packages
 
 setup(
     name="photoserver",
-    version="1.1.2",
+    version="1.2.0",
     packages=find_packages(),
     install_requires=[
         "fastapi==0.115.13",
         "uvicorn==0.34.3",
         "dotenv==0.9.9",
-        "python-dotenv==1.1.1"
+        "python-dotenv==1.1.1",
+        "pydantic>=2",
     ],
     author="luanft",
     author_email="xcrossworker@gmail.com",
