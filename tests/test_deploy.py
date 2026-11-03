@@ -17,6 +17,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("PHOTOSHELL_TOKEN", "tok")
     monkeypatch.setenv("UPDATE_SCRIPT", str(script))
     monkeypatch.setattr(main, "DEPLOY_LOG", str(tmp_path / "deploy.log"))
+    monkeypatch.setattr(main, "UPDATE_LOCK", str(tmp_path / "free.lock"))
     c = TestClient(main.app)
     c.out = out
     return c
@@ -60,3 +61,35 @@ def test_missing_script_is_logged_not_crashed(client, monkeypatch):
     assert r.status_code == 200
     log = client.get("/deploy/log", headers={"X-Photoshell-Token": "tok"}).json()["log"]
     assert "not executable" in log
+
+
+@pytest.mark.parametrize("key", ["PHOTOSHELL_TOKEN", "UPDATE_SCRIPT", "PATH", "shell_x;id"])
+def test_shell_only_runs_shell_prefixed_keys(client, key, monkeypatch, tmp_path):
+    """/shell/{key} used to run ANY env var: POST /shell/PHOTOSHELL_TOKEN put the
+    token into a log readable without auth."""
+    monkeypatch.setattr(main.tempfile, "gettempdir", lambda: str(tmp_path))
+    assert client.post(f"/shell/{key}").status_code == 404
+    assert client.get(f"/shell/{key}/log").status_code == 404
+    main.run_shell_command(key)  # second layer, bypassing the route
+    assert not (tmp_path / f"{key}.log").exists()
+
+
+def test_deploy_returns_409_while_update_holds_the_lock(client, tmp_path, monkeypatch):
+    import fcntl
+    lock = tmp_path / "update.lock"
+    monkeypatch.setattr(main, "UPDATE_LOCK", str(lock))
+    fd = os.open(lock, os.O_RDWR | os.O_CREAT)
+    fcntl.flock(fd, fcntl.LOCK_EX)
+    try:
+        r = client.post("/deploy", json={"version": "1.8.610"}, headers={"X-Photoshell-Token": "tok"})
+        assert r.status_code == 409
+    finally:
+        os.close(fd)
+
+
+def test_second_deploy_appends_log(client):
+    h = {"X-Photoshell-Token": "tok"}
+    client.post("/deploy", json={"version": "1.8.610"}, headers=h)
+    client.post("/deploy", json={"version": "1.8.611"}, headers=h)
+    log = client.get("/deploy/log", headers=h).json()["log"]
+    assert "deploy 1.8.610" in log and "deploy 1.8.611" in log
