@@ -59,7 +59,11 @@ fi
 
 # Launch your Electron application in KIOSK mode.
 # 'exec' must be the LAST command to run the application efficiently.
-exec /opt/machi_deployment/PhotoBoothLite-1.1.0-arm64.AppImage > booth_log.txt 2>&1
+# kiosk.AppImage: symlink update.sh switches between versions (Phase 5). Booths set up
+# before that only have the original file.
+KIOSK=/opt/machi_deployment/kiosk.AppImage
+[ -e "$KIOSK" ] || KIOSK=/opt/machi_deployment/PhotoBoothLite-1.1.0-arm64.AppImage
+exec "$KIOSK" > booth_log.txt 2>&1
 EOF
 
 
